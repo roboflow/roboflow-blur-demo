@@ -26,8 +26,8 @@ $(function () {
 
   var publishable_key = "rf_EsVTlbAbaZPLmAFuQwWoJgFpMU82";
   var toLoad = {
-    model: "no-mask-jbwfx",
-    version: 1,
+    model: "coco",
+    version: 3,
   };
 
   const loadModelPromise = new Promise(function (resolve, reject) {
@@ -38,6 +38,7 @@ $(function () {
       .load(toLoad)
       .then(function (m) {
         model = m;
+        model.configure({ threshold: 0.1 });
         resolve();
       });
   });
@@ -135,6 +136,7 @@ $(function () {
 
     ctx2.filter = "blur(10px)";
     ctx2.drawImage(video, 0, 0, ctx2.canvas.width, ctx2.canvas.height);
+    predictions = predictions.filter((p) => p.class === "donut");
 
     predictions.forEach(function (prediction) {
       const x = prediction.bbox.x;
