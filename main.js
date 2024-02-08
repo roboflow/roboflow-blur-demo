@@ -1,7 +1,6 @@
 /*jshint esversion:6*/
 
 $(function () {
-  document.documentElement.requestFullscreen();
   const video = $("video")[0];
 
   var model;
